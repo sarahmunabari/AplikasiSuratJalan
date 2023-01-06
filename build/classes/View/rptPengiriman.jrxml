@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dee347d-310b-40c3-b049-2b34393f594b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="tgl1" class="java.lang.String"/>
+	<parameter name="tgl2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     tb_invoice.`no_invoice` AS tb_invoice_no_invoice,
+     tb_invoice.`tgl_invoice` AS tb_invoice_tgl_invoice,
+     tb_invoice.`no_suratjalan` AS tb_invoice_no_suratjalan,
+     tb_invoice.`id_barang` AS tb_invoice_id_barang,
+     tb_suratjalan.`tgl_suratjalan` AS tb_suratjalan_tgl_suratjalan,
+     tb_suratjalan.`id_klien` AS tb_suratjalan_id_klien,
+     tb_suratjalan.`tujuan` AS tb_suratjalan_tujuan,
+     tb_suratjalan.`keterangan` AS tb_suratjalan_keterangan,
+     tb_suratjalan.`tgl_kadaluarsa` AS tb_suratjalan_tgl_kadaluarsa,
+     tb_barang.`nama_barang` AS tb_barang_nama_barang,
+     tb_barang.`jumlah` AS tb_barang_jumlah,
+     tb_klien.`nama_klien` AS tb_klien_nama_klien,
+     tb_klien.`no_telp` AS tb_klien_no_telp,
+     tb_klien.`alamat` AS tb_klien_alamat
+FROM
+     `tb_suratjalan` tb_suratjalan INNER JOIN `tb_invoice` tb_invoice ON tb_suratjalan.`no_suratjalan` = tb_invoice.`no_suratjalan`
+     INNER JOIN `tb_barang` tb_barang ON tb_invoice.`id_barang` = tb_barang.`id_barang`
+     INNER JOIN `tb_klien` tb_klien ON tb_suratjalan.`id_klien` = tb_klien.`id_klien`
+WHERE tb_suratjalan.`tgl_suratjalan` >= $P{tgl1} AND tb_suratjalan.`tgl_suratjalan` >= $P{tgl2}]]>
+	</queryString>
+	<field name="tb_invoice_no_invoice" class="java.lang.String"/>
+	<field name="tb_invoice_tgl_invoice" class="java.sql.Date"/>
+	<field name="tb_invoice_no_suratjalan" class="java.lang.String"/>
+	<field name="tb_invoice_id_barang" class="java.lang.String"/>
+	<field name="tb_suratjalan_tgl_suratjalan" class="java.sql.Date"/>
+	<field name="tb_suratjalan_id_klien" class="java.lang.String"/>
+	<field name="tb_suratjalan_tujuan" class="java.lang.String"/>
+	<field name="tb_suratjalan_keterangan" class="java.lang.String"/>
+	<field name="tb_suratjalan_tgl_kadaluarsa" class="java.sql.Date"/>
+	<field name="tb_barang_nama_barang" class="java.lang.String"/>
+	<field name="tb_barang_jumlah" class="java.lang.Integer"/>
+	<field name="tb_klien_nama_klien" class="java.lang.String"/>
+	<field name="tb_klien_no_telp" class="java.lang.String"/>
+	<field name="tb_klien_alamat" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="66" backcolor="#000000" uuid="b0c06ade-1e86-48c3-a8ec-931ec87b3dea"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="802" height="66" uuid="f3ffdaca-586e-42e8-9840-4f396254af36"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Laporan Pengiriman]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="802" height="32" forecolor="#000000" backcolor="#CC0000" uuid="f211dac0-a86b-4cbb-a9f2-b252be73ad67"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="653" y="5" width="144" height="20" forecolor="#FFFFFF" uuid="11d804f8-6014-43a4-bd36-97e550d5a012"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="102" height="18" forecolor="#000000" uuid="20e97473-cda9-4187-8f60-aa29961d62dc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No Surat Jalan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="102" y="0" width="106" height="18" forecolor="#000000" uuid="e58dbc66-4f55-46d3-935f-084dd6679744"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tgl Surat Jalan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="209" y="0" width="113" height="18" forecolor="#000000" uuid="27d0c81f-baf3-41fa-b723-e91dab8faa2d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Klien]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="323" y="0" width="125" height="18" forecolor="#000000" uuid="9666b072-5f4d-4337-95db-f5678f015728"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Penerima]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="448" y="0" width="129" height="18" forecolor="#000000" uuid="ad20935a-9079-4643-8df1-1758e4da1681"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tujuan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="701" y="0" width="96" height="18" forecolor="#000000" uuid="e3d715b5-0591-4f95-8d8e-f5858b8b66d1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tgl Kadaluarsa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="577" y="0" width="124" height="18" forecolor="#000000" uuid="a428d11a-d04f-42ba-980a-68d430a52abb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="c5a5d966-0a7c-4f51-8c3e-398590b0aa92"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="102" height="18" uuid="3dda2951-68fb-407a-b8ed-19996d850818"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tb_invoice_no_suratjalan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" positionType="Float" x="102" y="0" width="106" height="18" uuid="705cf3a3-dc0b-4320-99e6-6b9e174024df"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tb_suratjalan_tgl_suratjalan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="209" y="0" width="113" height="18" uuid="9745232d-718c-4cef-8b36-79bd1eae8d4c"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tb_suratjalan_id_klien}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="323" y="0" width="125" height="18" uuid="30a099c7-7af6-4f59-8a96-597105257d41"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tb_klien_nama_klien}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="448" y="0" width="129" height="18" uuid="82fa8a4f-f3bd-4cde-bd5c-77e03a4a6c81"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tb_suratjalan_tujuan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" positionType="Float" x="701" y="0" width="96" height="18" uuid="5747b0c7-b1db-4589-90ee-5b2fefb17046"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tb_suratjalan_tgl_kadaluarsa}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement style="Detail" positionType="Float" x="577" y="0" width="124" height="18" uuid="dee3853c-1bc4-4b06-9b0a-c400388da904"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tb_suratjalan_keterangan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="58" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="b53efb1e-9a88-460d-acc0-f50462ac611d"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="3723adbd-da98-4454-b22d-95d52e02b114"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="f496d778-016f-48a7-8d2d-9d64e0b7fa91"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF" uuid="4c2c833c-f83f-4b90-813e-ddd5d437a05f"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="2661b477-7ccf-4f48-85c5-e4fcd6c8f5ad"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
